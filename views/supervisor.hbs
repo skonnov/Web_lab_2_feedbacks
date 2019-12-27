@@ -1,0 +1,40 @@
+<html>
+    <head>
+        <script>
+            function validFormAdd(f) {
+                let executor = f.executor.value;
+                if(executor === '') {
+                    alert("Пустая форма!");
+                    return;
+                }
+                f.submit();
+            }
+            function validFormChange(f) {
+                let id = f.id.value;
+                if(id === '') {
+                    alert("Пустая форма!");
+                    return;
+                }
+                f.submit();
+            }
+        </script>
+    </head>
+    <body>
+        <a href="..">Назад</a>
+        <form action="/supervisor/addExecutor" method="post">
+            <label>Добавить сотрудника</label><br>
+            <input type = "text" name = "executor" size = "50pt" placeholder = "ФИО"><br>
+            <button type = "button" onclick="validFormAdd(this.form)">Добавить</button>
+        </form>
+        <br>
+        <form action="/supervisor/changeExecutor" method="post">
+            <label>Изменить назначение</label><br>
+            <input type = "text" name = "id" size = "50pt" placeholder = "id">
+            <select name = "executor" >
+                {{getExecutors executors}}
+            </select><br>
+            <button type = "button" onclick="validFormChange(this.form)">Сохранить</button>
+        </form>
+        {{getTable table}}
+    </body>
+</html>

@@ -1,0 +1,31 @@
+<html>
+    <head>
+        <script>
+            function validForm(f) {
+                let id = f.id.value;
+                let ready = f.ready.value;
+                let comment = f.comment.value;
+                if(id === '' || ready === '' || comment === '') {
+                    alert("Пустая форма!");
+                    return;
+                }
+                f.submit();
+            }
+        </script>
+    </head>
+    <body>
+        <a href="..">Назад</a>
+        <form action = 'chooseexecutor/executor' method = 'post' name = 'executorForm'>
+            <input type = "hidden" name = "executor" value = "{{executor}}">
+            <input type = "text" name = "id" size = "50pt" placeholder = "ID">
+            <input type = "radio" name = "ready" value = "no">
+            <label>Нет</label>
+            <input type = "radio" name = "ready" value = "yes">
+            <label>Да</label>
+            <input type = "text" name = "comment" size = "50pt" placeholder = "comment"><br>
+            <br>
+            <button type='button' onClick="validForm(this.form)">Отправить</button>
+        </form>
+        {{getTable table}}
+    </body>
+</html>

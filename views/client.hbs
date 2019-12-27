@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Client</title>
+        <meta charset="utf-8" />
+        <script>
+            function validForm(f) {
+                let userName = f.userName.value;
+                let phone = f.phone.value;
+                let problem = f.problem.value;
+                if(userName === '' || phone === '' || problem === '') {
+                    alert("ALYARMA");
+                    return;
+                }
+                let tmp = "";
+                if(phone.length <= 1) {
+                    alert("ALYARMA SIZE");
+                    return;
+                }
+                var flag = false;
+                for(let i = 0; i < phone.length; i++) {
+                    if(phone[i] === ' ') {
+                        continue;
+                    }
+                    if(flag === false && phone[i] === '+') {
+                        tmp = tmp.concat(phone[i]);
+                    } else if(phone[i] >= '0' && phone[i] <= '9') {
+                        tmp = tmp.concat(phone[i]);
+                    } else {
+                        alert("ALYARMA");
+                        return;
+                    }
+                    flag = true;
+                }
+                f.elements.phone.value = tmp;
+                f.submit();
+            }
+        </script>
+
+    </head>
+    <body>
+        <a href="..">Назад</a>
+        <form action = "/client" method = "post">
+                <label>Форма обратной связи</label><br>
+                <input type = "text" name = "userName" size = "50pt" placeholder = "ФИО"><br>
+                <input type = "text" name = "phone" size = "50pt" placeholder = "номер телефона"><br>
+                <textarea name = "problem" cols = "50" rows = "5" placeholder = "опишите проблему"></textarea><br>
+                <button type = "button" onclick="validForm(this.form)">Отправить</button>
+        </form>
+        <br><br>
+        <form action = "/client/table" method = "post">
+            <input type = "text" name = "userName" size = "50pt" placeholder = "ФИО"><br>
+            <button name = "submit">Просмотреть список проблем</button>
+        </form>
+        <br><br>
+        {{#if visible}}
+            {{getTable table}}
+        {{/if}}
+    </body>
+</html>
